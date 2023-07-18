@@ -48,49 +48,48 @@ function timeWord(timeStr) {
     "midnight",
   ];
 
-  let amOrPm = "";
+  const endMinutes = [
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+  ];
   let hourWord = "";
+  let pm = "";
+  let am = "";
 
   if (h === 0) {
     hourWord = hoursText[0];
   } else if (h === 12) {
     hourWord = hoursText[12];
-    amOrPm = "pm";
+    pm = "pm";
   } else if (h > 12) {
     hourWord = hoursText[h - 12];
-    amOrPm = "pm";
+    pm = "pm";
   } else {
     hourWord = hoursText[h];
-    amOrPm = "am";
+    am = "am";
   }
 
-  let minuteWord = "";
+  let minuteText = "";
 
   if (m === 0) {
-    minuteWord = "";
-  } else if (m < 10) {
-    minuteWord = "oh " + hoursText[m];
+    minuteText = "";
   } else if (m < 20) {
-    const specialMinutes = [
-      "ten",
-      "eleven",
-      "twelve",
-      "thirteen",
-      "fourteen",
-      "fifteen",
-      "sixteen",
-      "seventeen",
-      "eighteen",
-      "nineteen",
-    ];
-    minuteWord = specialMinutes[minute - 10];
+    minuteText = endMinutes[minute - 10];
   } else {
     const tens = ["", "", "twenty", "thirty", "forty", "fifty"];
-    minuteWord = tens[Math.floor(m / 10)] + " " + hoursText[m % 10];
+    minuteText = tens[Math.floor(m / 10)] + " " + hoursText[m % 10];
   }
 
   // Combine the hour word, minute word, and AM/PM indicator into a single string
-  return hourWord + " " + minuteWord + " " + amOrPm;
+  return hourWord + " " + minuteText + " ";
 }
 
 console.log(timeWord("00:00"));
