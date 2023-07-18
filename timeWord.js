@@ -11,42 +11,17 @@
 // 12:09	twelve oh nine pm
 // 23:23	eleven twenty three pm
 
-//parse
+function timeWord(timeStr) {
+  const splitTime = timeStr.split(":");
+  const h = parseInt(splitTime[0]);
+  const m = parseInt(splitTime[1]);
 
-// const endtime = h >= 12 ? "PM" : "AM";
+  // if (timeWord.length > 1) {
+  //   // If time format correct
+  //   timeWord = timeWord.slice(1); // Remove full string match value
+  // }
 
-// const hourwords = [
-//     "one",
-//     "two",
-//     "three",
-//     "four",
-//     "five",
-//     "six",
-//     "seven",
-//     "eight",
-//     "nine",
-//     "ten",
-//     "eleven",
-//     "noon",
-//     "midnight",
-//   ];
-
-// if (timeWord.length > 1) {
-//   // If time format correct
-//   timeWord = timeWord.slice(1); // Remove full string match value
-//   timeWord[5] = +timeWord[0] < 12 ? " AM" : " PM"; // Set AM/PM
-//   timeWord[0] = +timeWord[0] % 12 || 12; // Adjust hours
-// }
-
-function timeToWords(timeStr) {
-  // Split the input string into hour and minute parts
-  const timeParts = timeStr.split(":");
-  const hour = parseInt(timeParts[0]);
-  const minute = parseInt(timeParts[1]);
-
-  // Array of words to represent hours
-  const hoursToWords = [
-    "midnight",
+  const hoursText = [
     "one",
     "two",
     "three",
@@ -70,33 +45,32 @@ function timeToWords(timeStr) {
     "nine",
     "ten",
     "eleven",
+    "midnight",
   ];
 
   let amOrPm = "";
   let hourWord = "";
 
-  // Determine the hour word and AM/PM indicator based on the input hour
-  if (hour === 0) {
-    hourWord = hoursToWords[0];
-  } else if (hour === 12) {
-    hourWord = hoursToWords[12];
+  if (h === 0) {
+    hourWord = hoursText[0];
+  } else if (h === 12) {
+    hourWord = hoursText[12];
     amOrPm = "pm";
-  } else if (hour > 12) {
-    hourWord = hoursToWords[hour - 12];
+  } else if (h > 12) {
+    hourWord = hoursText[h - 12];
     amOrPm = "pm";
   } else {
-    hourWord = hoursToWords[hour];
+    hourWord = hoursText[h];
     amOrPm = "am";
   }
 
   let minuteWord = "";
 
-  // Determine the minute word based on the input minute
-  if (minute === 0) {
+  if (m === 0) {
     minuteWord = "";
-  } else if (minute < 10) {
-    minuteWord = "oh " + hoursToWords[minute];
-  } else if (minute < 20) {
+  } else if (m < 10) {
+    minuteWord = "oh " + hoursText[m];
+  } else if (m < 20) {
     const specialMinutes = [
       "ten",
       "eleven",
@@ -112,8 +86,7 @@ function timeToWords(timeStr) {
     minuteWord = specialMinutes[minute - 10];
   } else {
     const tens = ["", "", "twenty", "thirty", "forty", "fifty"];
-    minuteWord =
-      tens[Math.floor(minute / 10)] + " " + hoursToWords[minute % 10];
+    minuteWord = tens[Math.floor(m / 10)] + " " + hoursText[m % 10];
   }
 
   // Combine the hour word, minute word, and AM/PM indicator into a single string
@@ -121,3 +94,13 @@ function timeToWords(timeStr) {
 }
 
 console.log(timeWord("00:00"));
+
+//parse
+// const endtime = h >= 12 ? "PM" : "AM";
+
+// if (timeWord.length > 1) {
+//   // If time format correct
+//   timeWord = timeWord.slice(1); // Remove full string match value
+//   timeWord[5] = +timeWord[0] < 12 ? " AM" : " PM"; // Set AM/PM
+//   timeWord[0] = +timeWord[0] % 12 || 12; // Adjust hours
+// }
